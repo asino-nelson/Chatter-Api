@@ -12,12 +12,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i!t)4%yiauo@)2v(lqh6l_(^8j8^0npm()@gjvmw7zn8npbn6*'
+SECRET_KEY = os.environ.get("SECURITY_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
 
 
 # Application definition
@@ -71,20 +71,22 @@ WSGI_APPLICATION = 'chatter.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "chatter",
-        "USER": "postgres",
-        "PASSWORD": "asino@276",
-        "HOST": "localhost",
-        "PORT": "5432", 
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "chatter",
+#         "USER": "postgres",
+#         "PASSWORD": "asino@276",
+#         "HOST": "localhost",
+#         "PORT": "5432", 
+#     }
+# }
 
 database_url = os.environ.get("DATABASE_URL")
-DATABASES['default'] = dj_database_url.parse(database_url)
-
+# DATABASES['default'] = dj_database_url.parse(database_url)
+DATABASES = {
+    'default': dj_database_url.parse(database_url)
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
