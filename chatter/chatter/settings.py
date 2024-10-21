@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECURITY_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "6032776f0a9fc6ac87c65185f3f68833")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'chatter.wsgi.application'
 #     }
 # }
 
-database_url = os.environ.get("DATABASE_URL")
-# DATABASES['default'] = dj_database_url.parse(database_url)
+
+# DATABASES['default'] = dj_database_url.parse(os.environ.get("DATABASE_URL"))
 DATABASES = {
-    'default': dj_database_url.parse(database_url)
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 # Password validation
