@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import dj_database_url
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i!t)4%yiauo@)2v(lqh6l_(^8j8^0npm()@gjvmw7zn8npbn6*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -86,6 +87,7 @@ DATABASES = {
     }
 }
 
+database_url = os.environ.get("DATABASE_URL")
 DATABASES['default'] = dj_database_url.parse("postgresql://chatterapi_user:z3RuCkrFDN1kP8kqmXnyktXgTkHnFCeX@dpg-csavu90gph6c73a77bb0-a.oregon-postgres.render.com/chatterapi")
 
 # postgresql://chatterapi_user:z3RuCkrFDN1kP8kqmXnyktXgTkHnFCeX@dpg-csavu90gph6c73a77bb0-a.oregon-postgres.render.com/chatterapi
